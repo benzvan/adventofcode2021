@@ -61,6 +61,8 @@
 				
 				<option value="file2">github.com/benzvan/adventofcode2021/day02/day02.1/main.go (60.0%)</option>
 				
+				<option value="file3">github.com/benzvan/adventofcode2021/day02/day02.2/main.go (61.9%)</option>
+				
 				</select>
 			</div>
 			<div id="legend">
@@ -237,6 +239,75 @@ func (s *submarine) move(direction string, distance int) <span class="cov8" titl
                 s.depth = s.depth - distance</span>
         case "down":<span class="cov8" title="1">
                 s.depth = s.depth + distance</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package main
+
+import (
+        "bufio"
+        "io"
+        "strconv"
+        "strings"
+
+        "fmt"
+        "log"
+        "os"
+)
+
+type submarine struct {
+        depth    int
+        distance int
+        aim      int
+}
+
+type move struct {
+        direction string
+        distance  int
+}
+
+func main() <span class="cov0" title="0">{
+        input, err := parseInput(os.Stdin)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(err)
+        }</span>
+
+        <span class="cov0" title="0">sub := submarine{}
+        for _, move := range input </span><span class="cov0" title="0">{
+                sub.move(move.direction, move.distance)
+        }</span>
+        <span class="cov0" title="0">fmt.Println(sub.depth * sub.distance)</span>
+}
+
+func parseInput(reader io.Reader) (input []move, err error) <span class="cov8" title="1">{
+        scanner := bufio.NewScanner(reader)
+        for scanner.Scan() </span><span class="cov8" title="1">{
+                line := strings.Fields(scanner.Text())
+                distance, err := strconv.Atoi(line[1])
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, err
+                }</span>
+                <span class="cov8" title="1">input = append(input, move{
+                        direction: line[0],
+                        distance:  distance,
+                })</span>
+
+        }
+
+        <span class="cov8" title="1">err = scanner.Err()
+        return</span>
+}
+
+func (s *submarine) move(direction string, distance int) <span class="cov8" title="1">{
+        switch direction </span>{
+        case "forward":<span class="cov8" title="1">
+                s.distance = s.distance + distance
+                s.depth = s.depth + (s.aim * distance)</span>
+        case "up":<span class="cov8" title="1">
+                s.aim = s.aim - distance</span>
+        case "down":<span class="cov8" title="1">
+                s.aim = s.aim + distance</span>
         }
 }
 </pre>

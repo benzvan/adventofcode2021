@@ -8,4 +8,7 @@ github.com/benzvan/adventofcode2021/day01/day01.2/main.go:49:	countIncreases	100
 github.com/benzvan/adventofcode2021/day02/day02.1/main.go:24:	main		0.0%
 github.com/benzvan/adventofcode2021/day02/day02.1/main.go:37:	parseInput	88.9%
 github.com/benzvan/adventofcode2021/day02/day02.1/main.go:56:	move		100.0%
-total:								(statements)	68.3%
+github.com/benzvan/adventofcode2021/day02/day02.2/main.go:25:	main		0.0%
+github.com/benzvan/adventofcode2021/day02/day02.2/main.go:38:	parseInput	88.9%
+github.com/benzvan/adventofcode2021/day02/day02.2/main.go:57:	move		100.0%
+total:								(statements)	66.7%
