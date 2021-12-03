@@ -63,6 +63,8 @@
 				
 				<option value="file3">github.com/benzvan/adventofcode2021/day02/day02.2/main.go (61.9%)</option>
 				
+				<option value="file4">github.com/benzvan/adventofcode2021/day03/day03.1/main.go (0.0%)</option>
+				
 				</select>
 			</div>
 			<div id="legend">
@@ -310,6 +312,23 @@ func (s *submarine) move(direction string, distance int) <span class="cov8" titl
                 s.aim = s.aim + distance</span>
         }
 }
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package main
+
+import (
+        "sort"
+)
+
+func readDiagnostic(input []int) []int <span class="cov0" title="0">{
+        sort.Ints(input)
+        mostCommon := input[len(input)-1]
+        leastCommon := ^mostCommon
+        return []int{
+                mostCommon,
+                leastCommon,
+        }
+}</span>
 </pre>
 		
 		</div>

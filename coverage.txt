@@ -11,4 +11,5 @@ github.com/benzvan/adventofcode2021/day02/day02.1/main.go:56:	move		100.0%
 github.com/benzvan/adventofcode2021/day02/day02.2/main.go:25:	main		0.0%
 github.com/benzvan/adventofcode2021/day02/day02.2/main.go:38:	parseInput	88.9%
 github.com/benzvan/adventofcode2021/day02/day02.2/main.go:57:	move		100.0%
-total:								(statements)	66.7%
+github.com/benzvan/adventofcode2021/day03/day03.1/main.go:7:	readDiagnostic	0.0%
+total:								(statements)	63.5%
