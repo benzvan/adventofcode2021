@@ -1,4 +1,8 @@
-github.com/benzvan/adventofcode2021/day01/deeper.go:12:	main		0.0%
-github.com/benzvan/adventofcode2021/day01/deeper.go:20:	parseInput	100.0%
-github.com/benzvan/adventofcode2021/day01/deeper.go:34:	countIncreases	100.0%
-total:							(statements)	75.0%
+github.com/benzvan/adventofcode2021/day01.1/deeper.go:13:	main		0.0%
+github.com/benzvan/adventofcode2021/day01.1/deeper.go:25:	parseInput	100.0%
+github.com/benzvan/adventofcode2021/day01.1/deeper.go:39:	sumByThrees	100.0%
+github.com/benzvan/adventofcode2021/day01.1/deeper.go:49:	countIncreases	100.0%
+github.com/benzvan/adventofcode2021/day01.2/deeper.go:12:	main		0.0%
+github.com/benzvan/adventofcode2021/day01.2/deeper.go:20:	parseInput	100.0%
+github.com/benzvan/adventofcode2021/day01.2/deeper.go:34:	countIncreases	100.0%
+total:								(statements)	72.5%

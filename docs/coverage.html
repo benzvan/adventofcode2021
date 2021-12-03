@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>day01: Go Coverage Report</title>
+		<title>day01.1: Go Coverage Report</title>
 		<style>
 			body {
 				background: black;
@@ -55,7 +55,9 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/benzvan/adventofcode2021/day01/deeper.go (75.0%)</option>
+				<option value="file0">github.com/benzvan/adventofcode2021/day01.1/deeper.go (70.8%)</option>
+				
+				<option value="file1">github.com/benzvan/adventofcode2021/day01.2/deeper.go (75.0%)</option>
 				
 				</select>
 			</div>
@@ -69,14 +71,72 @@
 		</div>
 		<div id="content">
 		
-		<pre class="file" id="file0" style="display: none">package deeper
+		<pre class="file" id="file0" style="display: none">package main
 
 import (
-        "io"
-        "os"
-        "fmt"
         "bufio"
+        "fmt"
+        "io"
         "log"
+        "os"
+        "strconv"
+        "errors"
+)
+
+func main() <span class="cov0" title="0">{
+        input, err := parseInput(os.Stdin)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(err)
+        }</span>
+        <span class="cov0" title="0">input, err = sumByThrees(input)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(err)
+        }</span>
+        <span class="cov0" title="0">fmt.Println(countIncreases(input))</span>
+}
+
+func parseInput(reader io.Reader) (input []int, err error) <span class="cov8" title="1">{
+        scanner := bufio.NewScanner(reader)
+        for scanner.Scan() </span><span class="cov8" title="1">{
+                num, err := strconv.Atoi(scanner.Text())
+                if err != nil </span><span class="cov8" title="1">{
+                        return nil, err
+                }</span>
+                <span class="cov8" title="1">input = append(input, num)</span>
+        }
+
+        <span class="cov8" title="1">err = scanner.Err()
+        return</span>
+}
+
+func sumByThrees(input []int) (output []int, err error) <span class="cov8" title="1">{
+        if len(input) &lt; 3 </span><span class="cov8" title="1">{
+                return output, errors.New("input less than 3 values")
+        }</span>
+        <span class="cov8" title="1">for i := 0; i &lt; len(input) -2; i++ </span><span class="cov8" title="1">{
+                output = append(output, (input[i] + input[i+1] + input[i+2]))
+        }</span>
+        <span class="cov8" title="1">return</span>
+}
+
+func countIncreases(input []int) (total int) <span class="cov8" title="1">{
+        for index := 0; index &lt; len(input)-1; index++ </span><span class="cov8" title="1">{
+                if input[index] &lt; input[index+1] </span><span class="cov8" title="1">{
+                        total++
+                }</span>
+        }
+        <span class="cov8" title="1">return</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package main
+
+import (
+        "bufio"
+        "fmt"
+        "io"
+        "log"
+        "os"
         "strconv"
 )
 
@@ -103,7 +163,7 @@ func parseInput(reader io.Reader) (input []int, err error) <span class="cov8" ti
 }
 
 func countIncreases(input []int) (total int) <span class="cov8" title="1">{
-        for index := 0; index &lt; len(input) -1 ; index++</span><span class="cov8" title="1">{
+        for index := 0; index &lt; len(input)-1; index++ </span><span class="cov8" title="1">{
                 if input[index] &lt; input[index+1] </span><span class="cov8" title="1">{
                         total++
                 }</span>

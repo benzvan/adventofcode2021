@@ -1,5 +1,6 @@
 build:
-	go build -o build/$(binname) ./day01
+	go build -o build/$(binname) ./day01/day01.1
+	go build -o build/$(binname) ./day01/day01.2
 
 clean:
 	rm -rf build
