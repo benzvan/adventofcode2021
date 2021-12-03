@@ -55,9 +55,11 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/benzvan/adventofcode2021/day01.1/deeper.go (70.8%)</option>
+				<option value="file0">github.com/benzvan/adventofcode2021/day01/day01.1/main.go (75.0%)</option>
 				
-				<option value="file1">github.com/benzvan/adventofcode2021/day01.2/deeper.go (75.0%)</option>
+				<option value="file1">github.com/benzvan/adventofcode2021/day01/day01.2/main.go (70.8%)</option>
+				
+				<option value="file2">github.com/benzvan/adventofcode2021/day02/day02.1/main.go (60.0%)</option>
 				
 				</select>
 			</div>
@@ -80,7 +82,50 @@ import (
         "log"
         "os"
         "strconv"
+)
+
+func main() <span class="cov0" title="0">{
+        input, err := parseInput(os.Stdin)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(err)
+        }</span>
+        <span class="cov0" title="0">fmt.Println(countIncreases(input))</span>
+}
+
+func parseInput(reader io.Reader) (input []int, err error) <span class="cov8" title="1">{
+        scanner := bufio.NewScanner(reader)
+        for scanner.Scan() </span><span class="cov8" title="1">{
+                num, err := strconv.Atoi(scanner.Text())
+                if err != nil </span><span class="cov8" title="1">{
+                        return nil, err
+                }</span>
+                <span class="cov8" title="1">input = append(input, num)</span>
+        }
+
+        <span class="cov8" title="1">err = scanner.Err()
+        return</span>
+}
+
+func countIncreases(input []int) (total int) <span class="cov8" title="1">{
+        for index := 0; index &lt; len(input)-1; index++ </span><span class="cov8" title="1">{
+                if input[index] &lt; input[index+1] </span><span class="cov8" title="1">{
+                        total++
+                }</span>
+        }
+        <span class="cov8" title="1">return</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package main
+
+import (
+        "bufio"
         "errors"
+        "fmt"
+        "io"
+        "log"
+        "os"
+        "strconv"
 )
 
 func main() <span class="cov0" title="0">{
@@ -113,7 +158,7 @@ func sumByThrees(input []int) (output []int, err error) <span class="cov8" title
         if len(input) &lt; 3 </span><span class="cov8" title="1">{
                 return output, errors.New("input less than 3 values")
         }</span>
-        <span class="cov8" title="1">for i := 0; i &lt; len(input) -2; i++ </span><span class="cov8" title="1">{
+        <span class="cov8" title="1">for i := 0; i &lt; len(input)-2; i++ </span><span class="cov8" title="1">{
                 output = append(output, (input[i] + input[i+1] + input[i+2]))
         }</span>
         <span class="cov8" title="1">return</span>
@@ -129,46 +174,70 @@ func countIncreases(input []int) (total int) <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file1" style="display: none">package main
+		<pre class="file" id="file2" style="display: none">package main
 
 import (
         "bufio"
-        "fmt"
         "io"
+        "strconv"
+        "strings"
+
+        "fmt"
         "log"
         "os"
-        "strconv"
 )
+
+type submarine struct {
+        depth    int
+        distance int
+}
+
+type move struct {
+        direction string
+        distance  int
+}
 
 func main() <span class="cov0" title="0">{
         input, err := parseInput(os.Stdin)
         if err != nil </span><span class="cov0" title="0">{
                 log.Fatal(err)
         }</span>
-        <span class="cov0" title="0">fmt.Println(countIncreases(input))</span>
+
+        <span class="cov0" title="0">sub := submarine{}
+        for _, move := range input </span><span class="cov0" title="0">{
+                sub.move(move.direction, move.distance)
+        }</span>
+        <span class="cov0" title="0">fmt.Println(sub.depth * sub.distance)</span>
 }
 
-func parseInput(reader io.Reader) (input []int, err error) <span class="cov8" title="1">{
+func parseInput(reader io.Reader) (input []move, err error) <span class="cov8" title="1">{
         scanner := bufio.NewScanner(reader)
         for scanner.Scan() </span><span class="cov8" title="1">{
-                num, err := strconv.Atoi(scanner.Text())
-                if err != nil </span><span class="cov8" title="1">{
+                line := strings.Fields(scanner.Text())
+                distance, err := strconv.Atoi(line[1])
+                if err != nil </span><span class="cov0" title="0">{
                         return nil, err
                 }</span>
-                <span class="cov8" title="1">input = append(input, num)</span>
+                <span class="cov8" title="1">input = append(input, move{
+                        direction: line[0],
+                        distance:  distance,
+                })</span>
+
         }
 
         <span class="cov8" title="1">err = scanner.Err()
         return</span>
 }
 
-func countIncreases(input []int) (total int) <span class="cov8" title="1">{
-        for index := 0; index &lt; len(input)-1; index++ </span><span class="cov8" title="1">{
-                if input[index] &lt; input[index+1] </span><span class="cov8" title="1">{
-                        total++
-                }</span>
+func (s *submarine) move(direction string, distance int) <span class="cov8" title="1">{
+        switch direction </span>{
+        case "forward":<span class="cov8" title="1">
+                s.distance = s.distance + distance</span>
+        case "up":<span class="cov8" title="1">
+                s.depth = s.depth - distance</span>
+        case "down":<span class="cov8" title="1">
+                s.depth = s.depth + distance</span>
         }
-        <span class="cov8" title="1">return</span>
 }
 </pre>
 		

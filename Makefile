@@ -1,6 +1,9 @@
+default: lint fmt vet test build
+
 build:
 	go build -o build/$(binname) ./day01/day01.1
 	go build -o build/$(binname) ./day01/day01.2
+	go build -o build/$(binname) ./day02/day02.1
 
 clean:
 	rm -rf build
@@ -22,4 +25,4 @@ test:
 	rm coverage.out
 
 
-.PHONY: all build clean install lint fmt test vet common.mk
+.PHONY: all build clean install lint fmt test vet
