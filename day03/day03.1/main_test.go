@@ -13,24 +13,17 @@ func TestParseInput(t *testing.T) {
 	for _, tc := range []struct {
 		name       string
 		input      string
-		wantResult [][]uint
+		wantResult []int64
 	}{
 		{
-			name:  "two short lines",
-			input: "10\n01",
-			wantResult: [][]uint{
-				{1, 0},
-				{0, 1},
-			},
+			name:       "two short lines",
+			input:      "10\n01",
+			wantResult: []int64{0, 0},
 		},
 		{
-			name:  "six short lines",
-			input: "100\n011\n001\n110\n101\n111",
-			wantResult: [][]uint{
-				{1, 0, 0, 1, 1, 1},
-				{0, 1, 0, 1, 0, 1},
-				{0, 1, 1, 0, 1, 1},
-			},
+			name:       "two short lines",
+			input:      "10\n01",
+			wantResult: []int64{0, 0},
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
@@ -43,33 +36,24 @@ func TestParseInput(t *testing.T) {
 	}
 }
 
-func TestGetCommons(t *testing.T) {
+func TestGetGamma(t *testing.T) {
 	assert := assert.New(t)
 
 	for _, tc := range []struct {
 		name       string
-		input      []uint
-		wantResult []uint
+		input      []int64
+		wantResult uint64
+		wantError  string
 	}{
 		{
-			name:       "all ones",
-			input:      []uint{1, 1, 1, 1, 1},
-			wantResult: []uint{1, 0},
-		},
-		{
-			name:       "more than half ones",
-			input:      []uint{1, 0, 1, 0, 1},
-			wantResult: []uint{1, 0},
-		},
-		{
-			name:       "less than half ones",
-			input:      []uint{1, 0, 1, 0, 0},
-			wantResult: []uint{0, 1},
+			name:       "single test",
+			input:      []int64{-2, -9, 5, 3},
+			wantResult: 3 * 12,
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			// when
-			result := getCommons(tc.input)
+			result := getGamma(tc.input)
 
 			// then
 			assert.Equal(tc.wantResult, result)

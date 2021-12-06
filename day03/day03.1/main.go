@@ -2,39 +2,66 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"io"
-	"sort"
+	"log"
+	"os"
 	"strconv"
 )
 
-func parseInput(reader io.Reader) (input [][]uint, err error) {
+func main() {
+	input, err := parseInput(os.Stdin)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Print(getGamma(input))
+}
+
+func parseInput(reader io.Reader) ([]int64, error) {
 	scanner := bufio.NewScanner(reader)
+	var result []int64
+
 	for scanner.Scan() {
 		line := scanner.Text()
+		if len(result) == 0 {
+			result = make([]int64, len(line))
+		}
 
-		for i := range []rune(line) {
-			digit, err := strconv.ParseUint(string(line[i]), 2, 1)
+		for pos, bit := range line {
+			bitval, err := strconv.Atoi(string(bit))
 			if err != nil {
 				return nil, err
 			}
-			if input == nil {
-				input = make([][]uint, len(line))
+
+			switch bitval {
+			case 1:
+				result[pos]++
+			case 0:
+				result[pos]--
 			}
-			input[i] = append(input[i], uint(digit))
+
 		}
 
 	}
+	return result, nil
 
-	err = scanner.Err()
-	return
 }
 
-func getCommons(input []uint) []uint {
-	sort.Slice(input, func(i, j int) bool { return i < j })
-	mostCommon := input[len(input)-1]
-	leastCommon := 1 ^ mostCommon
-	return []uint{
-		mostCommon,
-		leastCommon,
+func getGamma(bits []int64) uint64 {
+	var gamma string
+	var epsilon string
+	for _, bit := range bits {
+		if bit > 0 {
+			gamma += "1"
+			epsilon += "0"
+		} else {
+			gamma += "0"
+			epsilon += "1"
+		}
 	}
+
+	gammaval, _ := strconv.ParseUint(gamma, 2, 64)
+	epsival, _ := strconv.ParseUint(epsilon, 2, 64)
+
+	return gammaval * epsival
 }

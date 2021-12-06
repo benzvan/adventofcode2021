@@ -63,7 +63,7 @@
 				
 				<option value="file3">github.com/benzvan/adventofcode2021/day02/day02.2/main.go (61.9%)</option>
 				
-				<option value="file4">github.com/benzvan/adventofcode2021/day03/day03.1/main.go (0.0%)</option>
+				<option value="file4">github.com/benzvan/adventofcode2021/day03/day03.1/main.go (82.8%)</option>
 				
 				</select>
 			</div>
@@ -317,18 +317,70 @@ func (s *submarine) move(direction string, distance int) <span class="cov8" titl
 		<pre class="file" id="file4" style="display: none">package main
 
 import (
-        "sort"
+        "bufio"
+        "fmt"
+        "io"
+        "log"
+        "os"
+        "strconv"
 )
 
-func readDiagnostic(input []int) []int <span class="cov0" title="0">{
-        sort.Ints(input)
-        mostCommon := input[len(input)-1]
-        leastCommon := ^mostCommon
-        return []int{
-                mostCommon,
-                leastCommon,
+func main() <span class="cov0" title="0">{
+        input, err := parseInput(os.Stdin)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(err)
+        }</span>
+        <span class="cov0" title="0">fmt.Print(getGamma(input))</span>
+}
+
+func parseInput(reader io.Reader) ([]int64, error) <span class="cov8" title="1">{
+        scanner := bufio.NewScanner(reader)
+        var result []int64
+
+        for scanner.Scan() </span><span class="cov8" title="1">{
+                line := scanner.Text()
+                if len(result) == 0 </span><span class="cov8" title="1">{
+                        result = make([]int64, len(line))
+                }</span>
+
+                <span class="cov8" title="1">for pos, bit := range line </span><span class="cov8" title="1">{
+                        bitval, err := strconv.Atoi(string(bit))
+                        if err != nil </span><span class="cov0" title="0">{
+                                return nil, err
+                        }</span>
+
+                        <span class="cov8" title="1">switch bitval </span>{
+                        case 1:<span class="cov8" title="1">
+                                result[pos]++</span>
+                        case 0:<span class="cov8" title="1">
+                                result[pos]--</span>
+                        }
+
+                }
+
         }
-}</span>
+        <span class="cov8" title="1">return result, nil</span>
+
+}
+
+func getGamma(bits []int64) uint64 <span class="cov8" title="1">{
+        var gamma string
+        var epsilon string
+        for _, bit := range bits </span><span class="cov8" title="1">{
+                if bit &gt; 0 </span><span class="cov8" title="1">{
+                        gamma += "1"
+                        epsilon += "0"
+                }</span> else<span class="cov8" title="1"> {
+                        gamma += "0"
+                        epsilon += "1"
+                }</span>
+        }
+
+        <span class="cov8" title="1">gammaval, _ := strconv.ParseUint(gamma, 2, 64)
+        epsival, _ := strconv.ParseUint(epsilon, 2, 64)
+
+        return gammaval * epsival</span>
+}
 </pre>
 		
 		</div>
